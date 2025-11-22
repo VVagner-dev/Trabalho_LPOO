@@ -9,6 +9,7 @@ import java.util.List;
 public class ManutencaoRepositorioArquivo {
     private final String caminho = "manutencaos.csv";
 
+
     public void salvar(List<Manutencao> manutencaos){
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho))) {
@@ -49,30 +50,77 @@ public class ManutencaoRepositorioArquivo {
 
     }
 
-    public ArrayList<Manutencao> carregar(){
+    public List<Manutencao> carregar(List<Equipamento> equipamentos) {
         File arquivo = new File(caminho);
-        if (!arquivo.exists()){
+        if (!arquivo.exists()) {
             return new ArrayList<>();
         }
 
-        try (BufferedReader br = new BufferedReader(new FileReader(caminho))){
+        ArrayList<Manutencao> lista = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(caminho))) {
             String linha;
-            ArrayList<Equipamento> lista = new ArrayList<>();
-            while ((linha = br.readLine()) != null){
-                String equipamento[] = linha.split(";");
+            Manutencao m = null;
 
-                Equipamento e = new Equipamento(Integer.parseInt(equipamento[0]),equipamento[1],equipamento[2]);
-                lista.add(e);
+            while ((linha = br.readLine()) != null) {
+                String manutencao[] = linha.split(";");
+
+                Equipamento encontrado = buscarPorId(equipamentos, Integer.valueOf(manutencao[2]));
+
+                if(encontrado == null) continue;
+
+                if (manutencao[0].equals("ManutencaoSimples")) {
+                        m = new ManutencaoSimples(
+                                Integer.valueOf(manutencao[1]),
+                                encontrado,
+                                manutencao[3],
+                                Double.valueOf(manutencao[4]),
+                                Boolean.valueOf(manutencao[5]));
+
+                }
+                else if (manutencao[0].equals("ManutencaoRecorrente")) {
+                    m = new ManutencaoRecorrente(
+                            Integer.valueOf(manutencao[1]),
+                            encontrado,
+                            manutencao[3],
+                            Double.valueOf(manutencao[4]),
+                            Boolean.valueOf(manutencao[5]),
+                            Double.valueOf(manutencao[6]));
+
+                }
+                else {
+                    if(buscarPorId(equipamentos,Integer.valueOf(manutencao[2]))!= null) {
+                    m = new ManutencaoUrgente(Integer.valueOf(manutencao[1]),
+                            encontrado,
+                            manutencao[3],
+                            Double.valueOf(manutencao[4]),
+                            Boolean.valueOf(manutencao[5]),
+                            Double.valueOf(manutencao[6]));
+                    }
+                }
+                lista.add(m);
+
 
             }
-            return lista;
 
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+        return lista;
 
 
+    }
 
+    public Equipamento buscarPorId(List<Equipamento> equipamentos ,Integer id){
 
+        for (Equipamento equipamento : equipamentos){
+
+            if(equipamento.getId().equals(id)){
+                return equipamento;
+            }
+        }
+        return null;
+
+    }
 }
 
