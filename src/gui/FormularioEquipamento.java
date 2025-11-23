@@ -18,7 +18,7 @@ public class FormularioEquipamento extends JDialog {
 
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 10, 5, 10); // Margem entre componentes
+        gbc.insets = new Insets(5, 10, 5, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         gbc.gridx = 0; gbc.gridy = 0;
@@ -26,7 +26,7 @@ public class FormularioEquipamento extends JDialog {
         add(new JLabel("ID:"), gbc);
 
         gbc.gridx = 1; gbc.gridy = 0;
-        gbc.weightx = 1.0; // Faz o campo de texto esticar
+        gbc.weightx = 1.0;
         txtId = new JTextField(15);
         add(txtId, gbc);
 
@@ -47,7 +47,6 @@ public class FormularioEquipamento extends JDialog {
         gbc.weightx = 1.0;
         txtTipo = new JTextField(15);
         add(txtTipo, gbc);
-
 
         gbc.gridx = 0; gbc.gridy = 3;
         gbc.gridwidth = 2;

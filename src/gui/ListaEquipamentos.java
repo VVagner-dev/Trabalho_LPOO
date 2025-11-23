@@ -19,7 +19,7 @@ public class ListaEquipamentos extends JDialog {
 
         setSize(500, 350);
         setLocationRelativeTo(parent);
-        setLayout(new BorderLayout(10, 10)); // Adiciona margem na borda
+        setLayout(new BorderLayout(10, 10));
 
         JLabel lblTitulo = new JLabel("Equipamentos Cadastrados", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 16));
@@ -42,7 +42,7 @@ public class ListaEquipamentos extends JDialog {
         painelBotoes.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
 
         JButton btnRemover = new JButton("Remover Selecionado");
-        btnRemover.setBackground(new Color(220, 50, 50)); // Cor vermelha para indicar exclusão
+        btnRemover.setBackground(new Color(220, 50, 50));
         btnRemover.setForeground(Color.WHITE);
         painelBotoes.add(btnRemover);
         add(painelBotoes, BorderLayout.SOUTH);

@@ -145,7 +145,7 @@ public class FormularioManutencao extends JDialog {
             JOptionPane.showMessageDialog(this, "ID, Valor Base, Taxa ou Desconto devem ser números válidos.", "Erro de Formato", JOptionPane.ERROR_MESSAGE);
         }
          catch (RuntimeException ex) {
-            // Captura exceções do serviço (ID Duplicado)
+
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro de Cadastro", JOptionPane.ERROR_MESSAGE);
         }
     }

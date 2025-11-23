@@ -43,7 +43,7 @@ public class ListaManutencoes extends JDialog {
 
         JPanel painelBotoes = new JPanel();
         JButton btnConcluir = new JButton("Marcar como Concluída");
-        btnConcluir.setBackground(new Color(50, 150, 220)); // Cor azul
+        btnConcluir.setBackground(new Color(50, 150, 220));
         btnConcluir.setForeground(Color.WHITE);
         painelBotoes.add(btnConcluir);
         add(painelBotoes, BorderLayout.SOUTH);
@@ -97,7 +97,7 @@ public class ListaManutencoes extends JDialog {
 
                 manutencao.concluirManutencao(id);
                 JOptionPane.showMessageDialog(this, "Manutenção concluída com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                carregarDados(); // Recarrega a lista
+                carregarDados();
             } catch (RuntimeException ex) {
 
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro de Conclusão", JOptionPane.ERROR_MESSAGE);
