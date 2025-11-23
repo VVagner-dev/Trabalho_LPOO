@@ -1,12 +1,18 @@
 package Servicos;
 
 import Entidades.Equipamento;
+import Repositorios.EquipamentoRepositorioArquivo;
 
 import java.util.ArrayList;
 
 public class EquipamentoServicos {
 
-    ArrayList<Equipamento> equipamentos = new ArrayList<>();
+    private ArrayList<Equipamento> equipamentos = new ArrayList<>();
+    private EquipamentoRepositorioArquivo repositorio;
+
+    public EquipamentoServicos() {
+        this.repositorio = new EquipamentoRepositorioArquivo();
+    }
 
     public void cadastrar(Integer id, String nome, String tipo){
 
@@ -15,8 +21,8 @@ public class EquipamentoServicos {
                 throw new RuntimeException("ID já cadastrado");
             }
         }
-        Equipamento e = new Equipamento(id, nome, tipo);
-        equipamentos.add(e);
+        Equipamento equipamento = new Equipamento(id, nome, tipo);
+        equipamentos.add(equipamento);
     }
 
     public ArrayList<Equipamento> listar(){
@@ -41,6 +47,16 @@ public class EquipamentoServicos {
         }else equipamentos.remove(equipamento);
     }
 
+    public void carregar(){
+        this.equipamentos = repositorio.carregar();
+    }
 
-
+    public void salvar(){
+        try{
+            repositorio.salvar(this.equipamentos);
+        }
+        catch (RuntimeException e) {
+            System.err.println(e.getMessage());
+        }
+    }
 }

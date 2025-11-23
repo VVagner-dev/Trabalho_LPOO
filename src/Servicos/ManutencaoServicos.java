@@ -1,21 +1,24 @@
 package Servicos;
 
 import Entidades.*;
+import Repositorios.ManutencaoRepositorioArquivo;
 
 import java.util.ArrayList;
 
 public class ManutencaoServicos {
 
-    ArrayList<Manutencao> manutencaos;
-    EquipamentoServicos es;
+    private ArrayList<Manutencao> manutencoes;
+    private EquipamentoServicos es;
+    private ManutencaoRepositorioArquivo repositorio;
 
     public ManutencaoServicos(EquipamentoServicos es) {
-        this.manutencaos = new ArrayList<>();
+        this.manutencoes = new ArrayList<>();
         this.es = es;
+        this.repositorio = new ManutencaoRepositorioArquivo();
     }
 
     private void validarId(Integer id){
-        for (Manutencao manutencao : manutencaos){
+        for (Manutencao manutencao : manutencoes){
             if(manutencao.getId().equals(id)){
                 throw new RuntimeException("ID já cadastrado");
             }
@@ -26,30 +29,30 @@ public class ManutencaoServicos {
         Equipamento equipamento = es.buscarPorId(idEquipamento);
         validarId(id);
         Manutencao e = new ManutencaoSimples(id,equipamento,descricao,valorBase,concluido);
-        manutencaos.add(e);
+        manutencoes.add(e);
     }
 
     public void cadastrarRecorrente(Integer id,Integer idEquipamento, String descricao, Double valorBase, boolean concluido, double desconto){
         Equipamento equipamento = es.buscarPorId(idEquipamento);
         validarId(id);
         Manutencao e = new ManutencaoRecorrente(id,equipamento,descricao,valorBase,concluido, desconto);
-        manutencaos.add(e);
+        manutencoes.add(e);
     }
 
     public void cadastrarUrgente(Integer id,Integer idEquipamento, String descricao, Double valorBase, boolean concluido, double taxa){
         Equipamento equipamento = es.buscarPorId(idEquipamento);
         validarId(id);
         Manutencao e = new ManutencaoUrgente(id,equipamento,descricao,valorBase,concluido, taxa);
-        manutencaos.add(e);
+        manutencoes.add(e);
     }
 
     public ArrayList<Manutencao> listar(){
-        return manutencaos;
+        return manutencoes;
     }
 
     public ArrayList<Manutencao> listarPendentes(){
         ArrayList<Manutencao> pendentes = new ArrayList<>();
-        for (Manutencao manutencao : manutencaos){
+        for (Manutencao manutencao : manutencoes){
             if(manutencao.isConcluido() == false){
                 pendentes.add(manutencao);
             }
@@ -57,7 +60,7 @@ public class ManutencaoServicos {
         return pendentes;
     }
     public Manutencao buscarPorId(Integer id){
-        for (Manutencao manutencao : manutencaos){
+        for (Manutencao manutencao : manutencoes){
             if(manutencao.getId().equals(id)){
                 return manutencao;
             }
@@ -76,7 +79,20 @@ public class ManutencaoServicos {
         Manutencao manutencao = buscarPorId(id);
         if(manutencao == null){
             throw new RuntimeException("ID não encontrado");
-        }else manutencaos.remove(manutencao);
+        }else manutencoes.remove(manutencao);
+    }
+
+    public void carregar(){
+        this.manutencoes = repositorio.carregar(es.listar());
+    }
+
+    public void salvar(){
+        try{
+            repositorio.salvar(this.manutencoes);
+        }
+        catch (RuntimeException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
 

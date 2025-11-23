@@ -10,21 +10,6 @@ public class EquipamentoRepositorioArquivo {
 
     private final String caminho = "equipamentos.csv";
 
-    public void salvar(List<Equipamento> equipamentos){
-
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho))) {
-            for(Equipamento e : equipamentos){
-                String linha = e.getId() + ";" + e.getNome() + ";" + e.getTipo();
-
-                bw.write(linha);
-                bw.newLine();
-            }
-        } catch (IOException e) {
-            throw new RuntimeException("Erro ao salvar arquivo: "+ e.getMessage());
-        }
-
-    }
-
     public ArrayList<Equipamento> carregar(){
         File arquivo = new File(caminho);
         if (!arquivo.exists()){
@@ -45,7 +30,21 @@ public class EquipamentoRepositorioArquivo {
 
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Erro ao carregar equipamentos: "+ e.getMessage());
+        }
+    }
+
+    public void salvar(ArrayList<Equipamento> equipamentos){
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho))) {
+            for(Equipamento e : equipamentos){
+                String linha = e.getId() + ";" + e.getNome() + ";" + e.getTipo();
+
+                bw.write(linha);
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Erro ao salvar arquivo: "+ e.getMessage());
         }
     }
 
