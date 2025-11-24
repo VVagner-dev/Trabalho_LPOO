@@ -2,11 +2,11 @@ package Entidades;
 
 import java.time.LocalDate;
 
-
+//Classe Manutenção abstrata
 public abstract class Manutencao {
 
     private Integer id;
-    private Equipamento equipamento;
+    private Equipamento equipamento; //atributo equipamento
     private String descricao;
     private double valorBase;
     private boolean concluido;
@@ -18,7 +18,7 @@ public abstract class Manutencao {
         this.valorBase = valorBase;
         this.concluido = concluido;
     }
-
+    //gets e settes e toString
     public Integer getId() {
         return id;
     }
@@ -58,8 +58,6 @@ public abstract class Manutencao {
         this.concluido = concluido;
     }
 
-    public abstract double calcularCusto();
-
     @Override
     public String toString() {
         return "Manutencao{" +
@@ -70,4 +68,8 @@ public abstract class Manutencao {
                 ", concluido=" + concluido +
                 '}';
     }
+
+    // função abstrata
+    public abstract double calcularCusto();
+
 }

@@ -1,5 +1,6 @@
 package Entidades;
 
+// classe equipamento
 public class Equipamento {
     private Integer id;
     private String nome;
@@ -12,6 +13,7 @@ public class Equipamento {
         this.tipo = tipo;
     }
 
+    //gets e settes e toString
     public String getTipo() {
         return tipo;
     }

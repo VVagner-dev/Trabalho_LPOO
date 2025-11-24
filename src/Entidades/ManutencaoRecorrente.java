@@ -1,5 +1,6 @@
 package Entidades;
 
+// Filho da classe abstrata Manutencao
 public class ManutencaoRecorrente extends Manutencao {
     private double desconto;
 
@@ -7,7 +8,7 @@ public class ManutencaoRecorrente extends Manutencao {
         super(id, equipamento, descricao, valorBase, concluido);
         this.desconto = desconto;
     }
-
+//get e set
     public double getDesconto() {
         return desconto;
     }
@@ -17,10 +18,11 @@ public class ManutencaoRecorrente extends Manutencao {
     }
 
 
+    //polimorfismo da função calculoCusto
     @Override
     public double calcularCusto() {
         return getValorBase()-(getValorBase()*(desconto/100));
-    }
+    } //retorna o valor menos a percentagem do desconto
 
     @Override
     public String toString() {

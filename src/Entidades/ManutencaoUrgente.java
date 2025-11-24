@@ -1,5 +1,7 @@
 package Entidades;
 
+
+// Filho da classe abstrata Manutencao
 public class ManutencaoUrgente extends Manutencao {
 
     private double taxaUrgencia;
@@ -17,10 +19,11 @@ public class ManutencaoUrgente extends Manutencao {
         this.taxaUrgencia = taxaUrgencia;
     }
 
+    //polimorfismo da função calculoCusto
     @Override
     public double calcularCusto() {
         return getValorBase()+(getValorBase()*(taxaUrgencia/100));
-    }
+    } //retorna o valor base mais a porcentagem da taxa
 
     @Override
     public String toString() {
