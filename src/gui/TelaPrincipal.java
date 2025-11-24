@@ -14,7 +14,7 @@ public class TelaPrincipal extends JFrame {
         this.equipamento = equipamento;
         this.manutencao = manutencao;
 
-        setTitle("Sistema de Gestão de Manutenção de Equipamentos Mecânicos");
+        setTitle("Sistema de Gestão de Manutenção de Equipamentos Eletrônicos");
         setSize(500, 350);
 
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

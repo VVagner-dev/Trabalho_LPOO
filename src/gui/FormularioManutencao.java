@@ -113,7 +113,8 @@ public class FormularioManutencao extends JDialog {
         try {
 
             Integer id = Integer.parseInt(txtId.getText());
-            Integer equipamento = (Integer) cmbEquipamento.getSelectedItem();
+            Integer equipamento = ((Equipamento) cmbEquipamento.getSelectedItem()).getId();
+
             if (equipamento == null || equipamento == 0) {
                 JOptionPane.showMessageDialog(this, "Selecione um equipamento válido.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
                 return;
